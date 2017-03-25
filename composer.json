@@ -14,9 +14,10 @@
         "symfony/console": "~3.0",
         "symfony/finder": "~3.0",
         "symfony/yaml"  : "~3.0",
-        "groovey/db" : "dev-master",
         "groovey/support" : "dev-master",
-        "groovey/tester" : "dev-master"
+        "groovey/tester" : "dev-master",
+        "groovey/config" : "dev-master",
+        "groovey/db" : "dev-master"
     },
     "autoload": {
         "psr-4": {
