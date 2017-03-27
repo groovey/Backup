@@ -4,7 +4,7 @@ namespace Groovey\Migration;
 
 use Symfony\Component\Finder\Finder;
 
-class Migration
+class Backup
 {
     private $app;
 

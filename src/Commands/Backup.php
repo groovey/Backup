@@ -5,12 +5,9 @@ namespace Groovey\Backup\Commands;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Yaml\Parser;
-use Groovey\Migration\Migration;
-use Groovey\Support\Output;
 
-class DB extends Command
+class Backup extends Command
 {
     private $app;
 
@@ -24,17 +21,23 @@ class DB extends Command
     protected function configure()
     {
         $this
-            ->setName('backup:db')
+            ->setName('backup:start')
             ->setDescription('Backup the database.')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $app  = $this->app;
-        print_r( $app['config']);
+        $app      = $this->app;
+        $host     = $app['db.connection']['host'];
+        $database = $app['db.connection']['database'];
+        $username = $app['db.connection']['username'];
+        $password = $app['db.connection']['password'];
 
-        // $yaml = new Parser();
+
+
+
+
 
     }
 }
