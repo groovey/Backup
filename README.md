@@ -16,45 +16,58 @@ set_time_limit(0);
 
 require_once __DIR__.'/vendor/autoload.php';
 
-use Symfony\Component\Console\Application;
-use Illuminate\Database\Capsule\Manager as Capsule;
-
-$capsule = new Capsule();
-
-$capsule->addConnection([
-    'driver'    => 'mysql',
-    'host'      => 'localhost',
-    'database'  => 'test_migration',
-    'username'  => 'root',
-    'password'  => '',
-    'charset'   => 'utf8',
-    'collation' => 'utf8_general_ci',
-    'prefix'    => '',
-], 'default');
-
-$capsule->bootEloquent();
-$capsule->setAsGlobal();
-
-$container['db'] = $capsule;
+use Silex\Application;
+use Groovey\Console\Providers\ConsoleServiceProvider;
+use Groovey\DB\Providers\DBServiceProvider;
 
 $app = new Application();
 
-$app->addCommands([
-        new Groovey\Backup\Commands\About(),
-        new Groovey\Backup\Commands\Backup($container),
+$app->register(new ConsoleServiceProvider(), [
+        'console.name'    => 'Groovey',
+        'console.version' => '1.0.0',
     ]);
 
-$status = $app->run();
+$app->register(new DBServiceProvider(), [
+        'db.connection' => [
+            'host'      => 'localhost',
+            'driver'    => 'mysql',
+            'database'  => 'test_backup',
+            'username'  => 'root',
+            'password'  => '',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'logging'   => true,
+        ],
+    ]);
+
+$console = $app['console'];
+
+$console->addCommands([
+        new Groovey\Backup\Commands\About(),
+        new Groovey\Backup\Commands\Export($app),
+        new Groovey\Migration\Commands\Init($app),
+        new Groovey\Migration\Commands\Reset($app),
+        new Groovey\Migration\Commands\Listing($app),
+        new Groovey\Migration\Commands\Drop($app),
+        new Groovey\Migration\Commands\Status($app),
+        new Groovey\Migration\Commands\Create($app),
+        new Groovey\Migration\Commands\Up($app),
+        new Groovey\Migration\Commands\Down($app),
+    ]);
+
+$status = $console->run();
 
 exit($status);
+
 ```
 
 ## List of Commands
 
-- [DB](#db)
+- [Export](#export)
 
-## DB
+## Export
 
-Backups your database on a directory relative to your root folder `./database/migrations`.
+Exports the .sql file to `./storage/backup`.
 
-    $ groovey backup:db
+    $ groovey backup:export
