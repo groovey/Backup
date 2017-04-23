@@ -45,15 +45,7 @@ $console = $app['console'];
 
 $console->addCommands([
         new Groovey\Backup\Commands\About(),
-        new Groovey\Backup\Commands\Export($app),
-        new Groovey\Migration\Commands\Init($app),
-        new Groovey\Migration\Commands\Reset($app),
-        new Groovey\Migration\Commands\Listing($app),
-        new Groovey\Migration\Commands\Drop($app),
-        new Groovey\Migration\Commands\Status($app),
-        new Groovey\Migration\Commands\Create($app),
-        new Groovey\Migration\Commands\Up($app),
-        new Groovey\Migration\Commands\Down($app),
+        new Groovey\Backup\Commands\Export($app)
     ]);
 
 $status = $console->run();
