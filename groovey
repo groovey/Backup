@@ -34,7 +34,7 @@ $console = $app['console'];
 
 $console->addCommands([
         new Groovey\Backup\Commands\About(),
-        new Groovey\Backup\Commands\Backup($app),
+        new Groovey\Backup\Commands\Export($app),
         new Groovey\Migration\Commands\Init($app),
         new Groovey\Migration\Commands\Reset($app),
         new Groovey\Migration\Commands\Listing($app),

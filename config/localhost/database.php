@@ -4,7 +4,7 @@ return [
     'db' => [
             'host'      => 'localhost',
             'driver'    => 'mysql',
-            'database'  => 'test',
+            'database'  => 'test_backup',
             'username'  => 'root',
             'password'  => '',
             'charset'   => 'utf8',

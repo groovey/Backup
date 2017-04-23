@@ -18,7 +18,6 @@
         "groovey/console" : "dev-master",
         "groovey/support" : "dev-master",
         "groovey/tester" : "dev-master",
-        "groovey/config" : "dev-master",
         "groovey/migration" : "dev-master",
         "groovey/db" : "dev-master"
     },
