@@ -52,48 +52,13 @@ class BackupTest extends PHPUnit_Framework_TestCase
                 new Down($app),
             ]);
 
+        Database::create($app);
         $this->app = $app;
     }
 
-    public function testAbout()
+    public function tearDown()
     {
-        $app     = $this->app;
-        $display = $app['tester']->command('backup:about')->execute()->display();
-
-        $this->assertRegExp('/Groovey/', $display);
-    }
-
-    public function testInit()
-    {
-        $app     = $this->app;
-        $display = $app['tester']->command('migrate:init')->execute()->display();
-
-        $this->assertRegExp('/Sucessfully/', $display);
-    }
-
-    public function testReset()
-    {
-        $app     = $this->app;
-        $display = $app['tester']->command('migrate:reset')->input('Y\n')->execute()->display();
-
-        $this->assertRegExp('/All migration entries has been cleared/', $display);
-    }
-
-    public function testStatus()
-    {
-        $app     = $this->app;
-        $display = $app['tester']->command('migrate:status')->execute()->display();
-
-        $this->assertRegExp('/Unmigrated YML/', $display);
-        $this->assertRegExp('/001/', $display);
-    }
-
-    public function testUp()
-    {
-        $app     = $this->app;
-        $display = $app['tester']->command('migrate:up')->input('Y\n')->execute()->display();
-
-        $this->assertRegExp('/001/', $display);
+        Database::drop($this->app);
     }
 
     public function testExport()
